@@ -10,7 +10,7 @@ textarea {
   font-family: "Comfortaa", Arial, sans-serif;
   font-size: 14px;
   line-height: 1.5;
-  background-color: #f0dcf7;
+  background-color: #edf2fb;
   outline: 0.05rem solid #21295c;
   margin: 5px;
   padding: 5px;
@@ -62,7 +62,7 @@ table {
   border-collapse: collapse;
   border: 0.05rem solid #21295c;
   border-radius: 20px;
-  background-color: #f0dcf7;
+  background-color: #cce6f4;
   margin: 1rem;
   padding: 0.5rem;
   /* outline: 0.05rem solid #21295c; */
@@ -80,4 +80,18 @@ th {
   border: 1px solid #21295c;
   background-color: #010317;
   color: azure;
+}
+
+#errors ul {
+  color: red;
+  font-weight: bold;
+  font-size: larger;
+  font-style: italic;
+  list-style: square;
+}
+
+#errors p {
+  color: red;
+  font-weight: bold;
+  font-size: larger;
 }

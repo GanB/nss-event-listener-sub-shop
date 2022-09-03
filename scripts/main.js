@@ -5,6 +5,7 @@ document.getElementById("app").innerHTML = `
 <div>
   <h3>Please make your sub</h3>
   <div class="subForm">
+      <div id="errors"></div>
     <div class="breadType">
       <p>Pick your bread</p>
       <label for="whiteBread">White Bread</label>
@@ -28,7 +29,7 @@ document.getElementById("app").innerHTML = `
       <input id="plantBased" name="proteinType" type="radio" value="Plant based protein..." />
       </div>
       <div class="toppings">
-        <p>Pick your Toppings (Select all that apply)</p>
+        <p>Pick your Toppings (Select up to 3 toppings)</p>
         <ul>
           <li>
             <input id="redGreenPepperStrips" name="toppings" type="checkbox" 
@@ -49,6 +50,17 @@ document.getElementById("app").innerHTML = `
           </li>
         </ul>
     </div>
+        <div class="cheeseType">
+      <p>Add Cheese?</p>
+      <label for="pepperJack">Pepper Jack</label>
+      <input id="pepperJack" name="cheeseType" type="radio" value="Pepper Jack" />
+      <label for="provolone">Provolone</label>
+      <input id="provolone" name="cheeseType" type="radio" value="Provolone" />
+      <label for="swiss">Swiss Cheese</label>
+      <input id="swiss" name="cheeseType" type="radio" value="Swiss Cheese" />
+      <label for="noCheese">No Cheese</label>
+      <input id="noCheese" name="cheeseType" type="radio" value="No Cheese" checked="checked"/>
+      </div>
     <div class="toasted">
       <p>Toasted?</p>
       <label for="yes">Yes</label>
@@ -62,6 +74,7 @@ document.getElementById("app").innerHTML = `
         <textarea id="specialInstructions"></textArea>
       </div>
     </div>
+
     <div>
       <button id="placeOrder">Place Order</button>
     </div>
@@ -71,30 +84,15 @@ document.getElementById("app").innerHTML = `
 </div>
 `;
 
-{
-  /* <table>
-  <tr>
-    <th>Order ID</th>
-    <th>Bread</th>
-    <th>Protein</th>
-    <th>Toppings</th>
-    <th>Cheese</th>
-    <th>Toasted?</th>
-    <th>Special Instructions</th>
-    <th>Price</th>
-  </tr>
-  <tr>
-    <td>${order.id}</td>
-    <td>${order.bread}</td>
-    <td>${order.protein}</td>
-    <td>${order.toppings.join(", ")}</td>
-    <td>${order.cheese}</td>
-    <td>${order.toasted}</td>
-    <td>${order.instructions}</td>
-    <td>$${order.price}</td>
-  </tr>
-</table>; */
-}
+const displayErrorMessage = (messagesArray) => {
+  const errorHtml = document.getElementById("errors");
+  let errorInnerHtml = `<p>Please correct the below errors</p><ul>`;
+  for (const message of messagesArray) {
+    errorInnerHtml += `<li>${message}</li>`;
+  }
+  errorInnerHtml += `</ul>`;
+  errorHtml.innerHTML = errorInnerHtml;
+};
 
 const displayOrders = () => {
   let ordersHtml = `<div><table><thead><tr>
@@ -108,6 +106,7 @@ const displayOrders = () => {
     <th>Price</th>
   </tr></thead><tbody>`;
   const orders = getOrders();
+  orders.sort((a, b) => b.id - a.id);
   // Add logic here to put the orders on the DOM
   for (const order of orders) {
     ordersHtml += `<tr><td>${order.id}</td>
@@ -117,30 +116,35 @@ const displayOrders = () => {
     <td>${order.cheese}</td>
     <td>${order.toasted}</td>
     <td>${order.instructions}</td>
-    <td>$${order.price}</td></tr>`;
+    <td>$${order.totalPrice}</td></tr>`;
   }
   ordersHtml += `</tbody></table>`;
   document.getElementById("orders").innerHTML = ordersHtml;
 };
 
-const resetPizzaForm = () => {
-  document.getElementById("thinCrust").checked = false;
-  document.getElementById("handTossedCrust").checked = false;
-  document.getElementById("stuffed").checked = false;
-  document.getElementById("pepperoni").checked = false;
-  document.getElementById("Sausage").checked = false;
-  document.getElementById("Black Olives").checked = false;
-  document.getElementById("Green Peppers").checked = false;
-  document.getElementById("Onions").checked = false;
+const resetOrderSubForm = () => {
+  //   document.getElementById("thinCrust").checked = false;
+  //   document.getElementById("handTossedCrust").checked = false;
+  //   document.getElementById("stuffed").checked = false;
+  //   document.getElementById("pepperoni").checked = false;
+  //   document.getElementById("Sausage").checked = false;
+  //   document.getElementById("Black Olives").checked = false;
+  //   document.getElementById("Green Peppers").checked = false;
+  //   document.getElementById("Onions").checked = false;
 
-  const toppingsElements = document.querySelectorAll(
-    "input[name=toppings]:checked"
-  );
+  //   const toppingsElements = document.querySelectorAll(
+  //     "input[name=toppings]:checked"
+  //   );
 
-  toppingsElements.forEach((toppingElement) => {
-    toppingElement = flase;
-  });
+  //   toppingsElements.forEach((toppingElement) => {
+  //     toppingElement = false;
+  //   });
 
+  document.querySelector("input[name=breadType]").checked = false;
+  document.querySelector("input[name=proteinType]").checked = false;
+  document
+    .querySelectorAll("input[name=toppings]")
+    .forEach((x) => (x.checked = false));
   document.getElementById("specialInstructions").value = "";
 };
 
@@ -148,7 +152,7 @@ displayOrders();
 
 document.addEventListener("newOrder", (event) => {
   displayOrders();
-  //   resetPizzaForm();
+  resetOrderSubForm();
 });
 
 document.addEventListener("click", (e) => {
@@ -169,6 +173,9 @@ document.addEventListener("click", (e) => {
     toppingsElements.forEach((toppingElement) => {
       selectedToppings.push(toppingElement.value);
     });
+    const selectedCheeseType = document.querySelector(
+      "input[name=cheeseType]:checked"
+    )?.value;
 
     const selectedToastedOption = document.querySelector(
       "input[name=toasted]:checked"
@@ -178,12 +185,28 @@ document.addEventListener("click", (e) => {
       "specialInstructions"
     ).value;
 
-    addNewOrder({
-      bread: selectedBreadType,
-      protein: selectedProteinType,
-      toppings: selectedToppings,
-      toasted: selectedToastedOption,
-      instructions: specialInstructions,
-    });
+    const errorMessages = [];
+    if (!selectedBreadType) errorMessages.push("please select a bread");
+    if (!selectedProteinType) errorMessages.push("please select a protein");
+    if (selectedToppings.length === 0)
+      errorMessages.push("please select a topping");
+    if (selectedToppings.length > 3)
+      errorMessages.push("please select max 3 toppings only");
+    if (!selectedCheeseType)
+      errorMessages.push("please select a cheese option");
+    if (!selectedToastedOption)
+      errorMessages.push("please select a toast option");
+
+    if (errorMessages.length === 0) {
+      addNewOrder({
+        bread: selectedBreadType,
+        protein: selectedProteinType,
+        toppings: selectedToppings,
+        cheese: selectedCheeseType,
+        toasted: selectedToastedOption,
+        instructions: specialInstructions,
+        totalPrice: 10.99,
+      });
+    } else displayErrorMessage(errorMessages);
   }
 });
