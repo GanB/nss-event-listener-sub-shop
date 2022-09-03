@@ -7,7 +7,7 @@ document.getElementById("app").innerHTML = `
   <div class="subForm">
       <div id="errors"></div>
     <div class="breadType">
-      <p>Pick your bread</p>
+      <p>Pick your bread [$3.99]</p>
       <label for="whiteBread">White Bread</label>
       <input id="whiteBread" name="breadType" type="radio" value="White Bread" />
       <label for="wheatBread">Wheat Bread</label>
@@ -18,7 +18,7 @@ document.getElementById("app").innerHTML = `
       <input id="glutenFreeBread" name="breadType" type="radio" value="Gluten Free Bread" />
       </div>
       <div class="proteinType">
-      <p>Pick your protein</p>
+      <p>Pick your protein  [$3.99]</p>
       <label for="grilledChicken">Grilled Chicken</label>
       <input id="grilledChicken" name="proteinType" type="radio" value="Grilled Chicken" />
       <label for="friedChicken">Fried Chicken</label>
@@ -29,7 +29,7 @@ document.getElementById("app").innerHTML = `
       <input id="plantBased" name="proteinType" type="radio" value="Plant based protein..." />
       </div>
       <div class="toppings">
-        <p>Pick your Toppings (Select up to 3 toppings)</p>
+        <p>Pick your Toppings (Select up to 3 toppings $1.99 each)</p>
         <ul>
           <li>
             <input id="redGreenPepperStrips" name="toppings" type="checkbox" 
@@ -51,7 +51,7 @@ document.getElementById("app").innerHTML = `
         </ul>
     </div>
         <div class="cheeseType">
-      <p>Add Cheese?</p>
+      <p>Add Cheese? [$2.99]</p>
       <label for="pepperJack">Pepper Jack</label>
       <input id="pepperJack" name="cheeseType" type="radio" value="Pepper Jack" />
       <label for="provolone">Provolone</label>
@@ -123,23 +123,6 @@ const displayOrders = () => {
 };
 
 const resetOrderSubForm = () => {
-  //   document.getElementById("thinCrust").checked = false;
-  //   document.getElementById("handTossedCrust").checked = false;
-  //   document.getElementById("stuffed").checked = false;
-  //   document.getElementById("pepperoni").checked = false;
-  //   document.getElementById("Sausage").checked = false;
-  //   document.getElementById("Black Olives").checked = false;
-  //   document.getElementById("Green Peppers").checked = false;
-  //   document.getElementById("Onions").checked = false;
-
-  //   const toppingsElements = document.querySelectorAll(
-  //     "input[name=toppings]:checked"
-  //   );
-
-  //   toppingsElements.forEach((toppingElement) => {
-  //     toppingElement = false;
-  //   });
-
   document.querySelector("input[name=breadType]").checked = false;
   document.querySelector("input[name=proteinType]").checked = false;
   document
@@ -198,6 +181,12 @@ document.addEventListener("click", (e) => {
       errorMessages.push("please select a toast option");
 
     if (errorMessages.length === 0) {
+      const totalPrice =
+        3.99 +
+        3.99 +
+        selectedToppings.length * 1.99 +
+        (selectedCheeseType === "No Cheese" ? 0.0 : 2.99);
+
       addNewOrder({
         bread: selectedBreadType,
         protein: selectedProteinType,
@@ -205,7 +194,7 @@ document.addEventListener("click", (e) => {
         cheese: selectedCheeseType,
         toasted: selectedToastedOption,
         instructions: specialInstructions,
-        totalPrice: 10.99,
+        totalPrice: Math.round((totalPrice + Number.EPSILON) * 100) / 100,
       });
     } else displayErrorMessage(errorMessages);
   }
