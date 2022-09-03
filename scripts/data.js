@@ -5,6 +5,7 @@ const orders = [
     bread: "Wheat Bread",
     protein: "Grilled Chicken",
     toppings: ["Red/Green Pepper Strips", "Sliced Pickles"],
+    toasted: "Yes",
     instructions: "extra cheese",
   },
   {
@@ -12,6 +13,7 @@ const orders = [
     bread: "Gluten Free Bread",
     protein: "Fried Chicken",
     toppings: ["Red/Green Pepper Strips", "Sliced Tomatoes"],
+    toasted: "No",
     instructions: "toasted",
   },
 ];

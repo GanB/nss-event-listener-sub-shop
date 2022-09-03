@@ -52,3 +52,32 @@ h6 {
 .toppings ul {
   list-style: none;
 }
+
+/* spacing */
+
+table {
+  table-layout: fixed;
+  width: 95%;
+  min-width: 50vw;
+  border-collapse: collapse;
+  border: 0.05rem solid #21295c;
+  border-radius: 20px;
+  background-color: #f0dcf7;
+  margin: 1rem;
+  padding: 0.5rem;
+  /* outline: 0.05rem solid #21295c; */
+}
+
+td {
+  padding: 20px;
+  border: 1px solid #21295c;
+  text-align: center;
+}
+
+th {
+  padding: 20px;
+  font-weight: bolder;
+  border: 1px solid #21295c;
+  background-color: #010317;
+  color: azure;
+}
