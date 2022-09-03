@@ -3,8 +3,8 @@ import { getOrders, addNewOrder } from "./data.js";
 document.getElementById("app").innerHTML = `
 <h1 class="shop__title">Peanut's Sub Shop</h1>
 <div>
-  <h3>Please make your sub</h3>
   <div class="subForm">
+    <h3>Please make your sub</h3>
       <div id="errors"></div>
     <div class="breadType">
       <p>Pick your bread [$3.99]</p>
@@ -29,7 +29,7 @@ document.getElementById("app").innerHTML = `
       <input id="plantBased" name="proteinType" type="radio" value="Plant based protein..." />
       </div>
       <div class="toppings">
-        <p>Pick your Toppings (Select up to 3 toppings $1.99 each)</p>
+        <p>Pick your Toppings [Select up to 3 toppings $1.99 each]</p>
         <ul>
           <li>
             <input id="redGreenPepperStrips" name="toppings" type="checkbox" 
@@ -71,7 +71,7 @@ document.getElementById("app").innerHTML = `
     <div class="extras">
       <label for="specialInstructions">Special Instructions</label>
       <div>
-        <textarea id="specialInstructions"></textArea>
+        <textarea id="specialInstructions" rows="5" cols="50"></textArea>
       </div>
     </div>
 
@@ -79,8 +79,10 @@ document.getElementById("app").innerHTML = `
       <button id="placeOrder">Place Order</button>
     </div>
   </div>
+  <div class="ordersSection">
   <h3>Orders</h3>
   <div id="orders"></div>
+</div>
 </div>
 `;
 

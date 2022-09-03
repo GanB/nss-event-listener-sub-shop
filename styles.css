@@ -25,6 +25,20 @@ h5,
 h6 {
   font-family: "Patua One", serif;
   letter-spacing: 2px;
+  text-align: center;
+  font-weight: 900;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+  transform: scale(1.5);
+}
+
+.subForm h3 {
+  text-align: center;
+  font-weight: 900;
+  font-size: x-large;
+  align-self: center;
 }
 
 .shop__title {
@@ -38,31 +52,87 @@ h6 {
   outline-offset: 0.5rem;
 }
 
-#placeOrder {
-  text-align: center;
-  align-content: center;
-  align-self: center;
-  background-color: #010317;
-  color: azure;
-  border-radius: 20px;
-  padding: 0.5rem;
+.subForm {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 1rem;
+  background-color: #bde0fe;
+  padding: 1rem;
   margin: 1rem;
+  /* color: azure; */
+  border-radius: 20px;
+}
+
+.breadType,
+.proteinType,
+.cheeseType,
+.toasted,
+.extras {
+  align-content: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 25px;
+  min-width: 90vw;
+  border-radius: 20px;
+  border-color: #010317;
+}
+
+.specialInstructions {
+  width: 1000px;
+}
+
+.breadType p,
+.proteinType p,
+.cheeseType p,
+.toppings p,
+.toasted p,
+.extras label {
+  font-weight: bolder;
 }
 
 .toppings ul {
   list-style: none;
 }
 
-/* spacing */
+#placeOrder {
+  text-align: center;
+  align-content: center;
+  align-self: center;
+  width: 20vw;
+  background-color: #010317;
+  color: azure;
+  border-radius: 20px;
+  padding: 0.5rem;
+  font-weight: 900;
+  margin-left: 35vw;
+  /* margin: 1rem; */
+}
+
+.ordersSection h3 {
+  text-align: center;
+  background-color: #010317;
+  font-weight: 700;
+  color: azure;
+  border-radius: 20px;
+  margin: 1rem;
+  padding: 0.5rem;
+  outline-offset: 0.5rem;
+}
 
 table {
   table-layout: fixed;
   width: 95%;
   min-width: 50vw;
   border-collapse: collapse;
-  border: 0.05rem solid #21295c;
+  /* border: 0.05rem solid #21295c; */
   border-radius: 20px;
-  background-color: #cce6f4;
+  background-color: #bde0fe;
+  /* color: azure; */
   margin: 1rem;
   padding: 0.5rem;
   /* outline: 0.05rem solid #21295c; */
