@@ -1,52 +1,62 @@
 import { getOrders, addNewOrder } from "./data.js";
 
 document.getElementById("app").innerHTML = `
-<h1>Peanut's Pizza Parlor</h1>
+<h1 class="shop__title">Peanut's Sub Shop</h1>
 <div>
-  <h3>Please make your pizza</h3>
-  <div class="pizzaForm">
-    <div class="crust">
-      <p>Pick your crust</p>
-      <label for="thinCrust">Thin</label>
-      <input id="thinCrust" name="crust" type="radio" value="thin" />
-      <label for="handTossedCrust">Hand Tossed</label>
-      <input id="handTossedCrust" name="crust" type="radio" value="HandTossed" />
-      <label for="handTossedCrust">Stuffed</label>
-      <input id="stuffed" name="crust" type="radio" value="stuffed" />
+  <h3>Please make your sub</h3>
+  <div class="subForm">
+    <div class="breadType">
+      <p>Pick your bread</p>
+      <label for="whiteBread">White Bread</label>
+      <input id="whiteBread" name="breadType" type="radio" value="whiteBread" />
+      <label for="wheatBread">Wheat Bread</label>
+      <input id="wheatBread" name="breadType" type="radio" value="wheatBread" />
+      <label for="rosemaryParmesanBread">Rosemary Parmesan Bread</label>
+      <input id="rosemaryParmesanBread" name="breadType" type="radio" value="rosemaryParmesanBread" />
+      <label for="glutenFreeBread">Gluten Free Bread</label>
+      <input id="glutenFreeBread" name="breadType" type="radio" value="glutenFreeBread" />
+      </div>
+      <div class="proteinType">
+      <p>Pick your protein</p>
+      <label for="grilledChicken">Grilled Chicken</label>
+      <input id="grilledChicken" name="proteinType" type="radio" value="grilledChicken" />
+      <label for="friedChicken">Fried Chicken</label>
+      <input id="friedChicken" name="proteinType" type="radio" value="friedChicken" />
+      <label for="grilledTurkey">Grilled Turkey</label>
+      <input id="grilledTurkey" name="proteinType" type="radio" value="grilledTurkey" />
+      <label for="plantBased">Plant based protein...</label>
+      <input id="plantBased" name="proteinType" type="radio" value="plantBased" />
       </div>
       <div class="toppings">
         <p>Pick your Toppings (Select all that apply)</p>
         <ul>
           <li>
-            <input id="pepperoni" name="toppings" type="checkbox" value="pepperoni" />
-            <label for="pepperoni">Pepperoni</label>
+            <input id="redGreenPepperStrips" name="toppings" type="checkbox" 
+            value="redGreenPepperStrips" />
+            <label for="redGreenPepperStrips">Red/Green Pepper Strips</label>
           </li>
           <li>
-            <input id="Sausage" name="toppings" type="checkbox" value="Sausage" />
-            <label for="Sausage">Sausage</label>
+            <input id="grilledOnions" name="toppings" type="checkbox" value="grilledOnions" />
+            <label for="grilledOnions">Grilled Onions</label>
           </li>
           <li>
-            <input id="Black Olives" name="toppings" type="checkbox" value="Black Olives" />
-            <label for="Black Olives">Black Olives</label>
+            <input id="slicedTomatoes" name="toppings" type="checkbox" value="slicedTomatoes" />
+            <label for="slicedTomatoes">Sliced Tomatoes</label>
           </li>
           <li>
-            <input id="Green Peppers" name="toppings" type="checkbox" value="Green Peppers" />
-            <label for="Green Peppers">Green Peppers</label>
-          </li>
-          <li>
-            <input id="Onions" name="toppings" type="checkbox" value="Onions" />
-            <label for="Onions">Onions</label>
+            <input id="slicedPickles" name="toppings" type="checkbox" value="slicedPickles" />
+            <label for="slicedPickles">Sliced Pickles</label>
           </li>
         </ul>
     </div>
     <div class="extras">
-      <label for="specialInstructions">Notes/Special Instructions</label>
+      <label for="specialInstructions">Special Instructions</label>
       <div>
         <textarea id="specialInstructions"></textArea>
       </div>
     </div>
     <div>
-      <button id="submitOrder">Order Pizza</button>
+      <button id="placeOrder">Place Order</button>
     </div>
   </div>
   <h3>Orders</h3>
@@ -59,11 +69,11 @@ const displayOrders = () => {
   const orders = getOrders();
   // Add logic here to put the orders on the DOM
   for (const order of orders) {
-    ordersHtml += `<li> Order ID ${order.id}: ${
-      order.crust
-    } crust, with toppings: ${order.toppings.join(
-      ", "
-    )} and special instructions: ${order.instructions} </li>`;
+    ordersHtml += `<li> Order ID ${order.id}: ${order.bread}, Protein: ${
+      order.protein
+    } with toppings: ${order.toppings.join(", ")} and special instructions: ${
+      order.instructions
+    } </li>`;
   }
   ordersHtml += `</div></ul>`;
   document.getElementById("orders").innerHTML = ordersHtml;
@@ -94,38 +104,17 @@ displayOrders();
 
 document.addEventListener("newOrder", (event) => {
   displayOrders();
-  resetPizzaForm();
+  //   resetPizzaForm();
 });
 
 document.addEventListener("click", (e) => {
-  if (e.target.id === "submitOrder") {
-    // Need logic to get all the values from the form,
-    // format them into an object and add that object to the `orders` array in `orders.js`
+  if (e.target.id === "placeOrder") {
+    const selectedBreadType = document.querySelector(
+      "input[name=breadType]:checked"
+    )?.value;
 
-    // const thinCrust = document.getElementById("thinCrust");
-    // const handTossedCrust = document.getElementById("handTossedCrust");
-    // const stuffed = document.getElementById("stuffed");
-
-    // let selectedCrust = "";
-    // if (thinCrust.checked) selectedCrust = thinCrust.value;
-    // if (handTossedCrust.checked) selectedCrust = handTossedCrust.value;
-    // if (stuffed.checked) selectedCrust = stuffed.value;
-
-    // const pepperoni = document.getElementById("pepperoni");
-    // const sausage = document.getElementById("Sausage");
-    // const blackOlives = document.getElementById("Black Olives");
-    // const greenPeppers = document.getElementById("Green Peppers");
-    // const onions = document.getElementById("Onions");
-
-    // const selectedToppings = [];
-    // if (pepperoni.checked) selectedToppings.push(pepperoni.value);
-    // if (sausage.checked) selectedToppings.push(sausage.value);
-    // if (blackOlives.checked) selectedToppings.push(blackOlives.value);
-    // if (greenPeppers.checked) selectedToppings.push(greenPeppers.value);
-    // if (onions.checked) selectedToppings.push(onions.value);
-
-    const selectedCrust = document.querySelector(
-      "input[name=crust]:checked"
+    const selectedProteinType = document.querySelector(
+      "input[name=proteinType]:checked"
     )?.value;
 
     const toppingsElements = document.querySelectorAll(
@@ -142,7 +131,8 @@ document.addEventListener("click", (e) => {
     ).value;
 
     addNewOrder({
-      crust: selectedCrust,
+      bread: selectedBreadType,
+      protein: selectedProteinType,
       toppings: selectedToppings,
       instructions: specialInstructions,
     });

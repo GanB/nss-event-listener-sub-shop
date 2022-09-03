@@ -2,15 +2,17 @@
 const orders = [
   {
     id: 1,
-    crust: "HandTossed",
-    toppings: ["pepperoni", "green pepper"],
+    bread: "Wheat Bread",
+    protein: "Grilled Chicken",
+    toppings: ["Red/Green Pepper Strips", "Sliced Pickles"],
     instructions: "extra cheese",
   },
   {
     id: 2,
-    crust: "Thin",
-    toppings: ["Black Olives", "green pepper"],
-    instructions: "half green peppers",
+    bread: "Gluten Free Bread",
+    protein: "Fried Chicken",
+    toppings: ["Red/Green Pepper Strips", "Sliced Tomatoes"],
+    instructions: "toasted",
   },
 ];
 

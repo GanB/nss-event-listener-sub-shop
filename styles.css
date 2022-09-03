@@ -26,3 +26,29 @@ h6 {
   font-family: "Patua One", serif;
   letter-spacing: 2px;
 }
+
+.shop__title {
+  text-align: center;
+  background-color: #010317;
+  font-weight: 700;
+  color: azure;
+  border-radius: 20px;
+  margin: 1rem;
+  padding: 0.5rem;
+  outline-offset: 0.5rem;
+}
+
+#placeOrder {
+  text-align: center;
+  align-content: center;
+  align-self: center;
+  background-color: #010317;
+  color: azure;
+  border-radius: 20px;
+  padding: 0.5rem;
+  margin: 1rem;
+}
+
+.toppings ul {
+  list-style: none;
+}
